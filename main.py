@@ -83,15 +83,20 @@ async def analisar_cliente(request: AnaliseRequest, token: str = Depends(verific
         print(f"❌ ERRO INTERNO NO PYTHON: {str(e)}")
         raise HTTPException(status_code=500, detail=str(e))
 
+
+        
 @app.delete("/clientes/excluir/{cliente_id}")
-async def excluir_cliente(cliente_id: str):
+async def excluir_cliente(cliente_id: str, token: str = Depends(verificar_token)): # 🔒 Token protegido aqui
     try:
-        # O Python usa a service_role e consegue deletar mesmo com o RLS ativado
+        # Como o Python usa a service_role, ele ignora o RLS e deleta com sucesso
         resposta = supabase.table("clientes").delete().eq("id", cliente_id).execute()
         
         if not resposta.data:
-            raise HTTPException(status_code=404, detail="Cliente não encontrado.")
+            raise HTTPException(status_code=404, detail="Cliente não encontrado no banco.")
             
-        return {"status": "sucesso", "mensagem": "Cliente removido com segurança pelo backend."}
+        return {
+            "status": "sucesso", 
+            "mensagem": f"Cliente com ID {cliente_id} removido com total segurança pelo backend."
+        }
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))

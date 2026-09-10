@@ -33,7 +33,7 @@ app.add_middleware(
     CORSMiddleware,
     allow_origins=[
         "http://localhost:3000", # Mantém para testes locais
-        "https://teste-nextjs-supabase.vercel.app" # Substitua pela URL real da sua Vercel
+        "https://teste-nextjs-supabase.vercel.app/clientes/lista" # Substitua pela URL real da sua Vercel
     ], # Em produção, substitua pelo link da sua Vercel
     allow_credentials=True,
     allow_methods=["POST"],

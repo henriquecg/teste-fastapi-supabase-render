@@ -1,0 +1,11 @@
+# Esconder arquivos de senhas e chaves
+.env
+
+# Esconder a pasta do ambiente virtual (caso você use)
+.venv/
+venv/
+env/
+
+# Esconder arquivos temporários do Python
+__pycache__/
+*.pyc
